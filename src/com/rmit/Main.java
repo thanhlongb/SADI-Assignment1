@@ -16,14 +16,14 @@ public class Main {
 
     private static void importData(String[] args) {
         int importedCoursesCount, importedStudentsCount;
-        if (args.length > 2) {
-            importedCoursesCount = schoolManager.importCourses(args[1]);
+        if (args.length > 0) {
+            importedCoursesCount = schoolManager.importCourses(args[0]);
         } else {
             importedCoursesCount = schoolManager.importCourses();
         }
         view.printMessage(String.format("Found %s courses.", importedCoursesCount));
-        if (args.length > 3) {
-            importedStudentsCount = schoolManager.importStudents(args[2]);
+        if (args.length > 1) {
+            importedStudentsCount = schoolManager.importStudents(args[1]);
         } else {
             importedStudentsCount = schoolManager.importStudents();
         }
