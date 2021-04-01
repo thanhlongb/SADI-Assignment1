@@ -1,6 +1,5 @@
 package com.rmit;
 
-import java.io.*;
 import java.util.concurrent.CancellationException;
 
 public class Main {
@@ -10,7 +9,7 @@ public class Main {
         importData(args);
         while (true) {
             showMainMenu();
-            view.waitForUserToReadOutput();
+            view.standBy();
         }
     }
 
@@ -35,9 +34,9 @@ public class Main {
                 "Print all students",
                 "Print all courses",
                 "Print all enrolments",
-                "Print all courses for 1 student in 1 semester",
+                "Print all courses of 1 student in 1 semester",
                 "Print all students of 1 course in 1 semester",
-                "Prints all courses offered in 1 semester",
+                "Print all courses offered in 1 semester",
                 "Enroll a student into a course",
                 "Update an enrolment",
                 "Delete an enrolment",
@@ -72,12 +71,38 @@ public class Main {
     }
 
     private static void printAllCourseOfStudentInSemester() {
-        String studentName, semester;
-        studentName = view.promptUserString("Enter student name:");
-        semester = view.promptUserString("Enter the semester:");
-        String[] enrolments = schoolManager.getOneEnrolments(studentName, null, semester);
+        String semester;
+        int studentIndex, courseIndex;
+        String[] students = schoolManager.getStudents();
+        try {
+            studentIndex = view.promptUserOption(students, "Select a student:", true);
+            semester = view.promptUserString("Enter the semester:");
+        } catch (CancellationException e) {
+            System.out.println("Enrolment process cancelled.");
+            return;
+        }
+        String[] enrolments = schoolManager.getOneEnrolments(studentIndex, null, semester);
         if (enrolments.length > 0) {
             view.printStringArray(enrolments);
+            while (view.promptYesOrNo("Do you want to delete a course?")) {
+                try {
+                    courseIndex = view.promptUserOption(enrolments, "Select a enrolment:", true);
+                    schoolManager.deleteEnrolment(courseIndex);
+                } catch (Exception e) {
+                    System.out.println("Enrolment deletion process cancelled.");
+                }
+            }
+            while (view.promptYesOrNo("Do you want to add a new course?")) {
+                try {
+                    courseIndex = view.promptUserOption(enrolments, "Select a course:", true);
+                    schoolManager.enroll(studentIndex, courseIndex, semester);
+                    System.out.println("Enrolment added.");
+                } catch (CancellationException e) {
+                    System.out.println("Enrolment process cancelled.");
+                } catch (Exception e) {
+                    System.out.println("Unable to enroll student.");
+                }
+            }
             askIfUserWantToExportEnrolment(enrolments);
         } else {
             System.out.println("No course found!");
@@ -85,10 +110,17 @@ public class Main {
     }
 
     private static void printAllStudentOfCourseInSemester() {
-        String courseName, semester;
-        courseName = view.promptUserString("Enter course name:");
+        String semester;
+        int courseIndex;
+        String[] courses = schoolManager.getCourses();
+        try {
+            courseIndex = view.promptUserOption(courses, "Select a course:", true);
+        } catch (CancellationException e) {
+            view.printMessage("Operation cancelled.");
+            return;
+        }
         semester = view.promptUserString("Enter the semester:");
-        String[] enrolments = schoolManager.getOneEnrolments(null, courseName, semester);
+        String[] enrolments = schoolManager.getOneEnrolments(null, courseIndex, semester);
         if (enrolments.length > 0) {
             view.printStringArray(enrolments);
             askIfUserWantToExportEnrolment(enrolments);
@@ -143,16 +175,20 @@ public class Main {
         String[] enrolments = schoolManager.getAllEnrolments();
         String[] students = schoolManager.getStudents();
         String[] courses = schoolManager.getCourses();
+        if (enrolments.length == 0) {
+            view.printMessage("Enrolment is empty, please add some and try this again.");
+            return;
+        }
         try {
             enrolmentIndex = view.promptUserOption(enrolments, "Select an enrolment to update:", true);
-            if (view.promptYesOrNo("Do you want to update student?")) {
+            if (view.promptYesOrNo("Do you want to update the student?")) {
                 studentIndex = view.promptUserOption(students, "Select a student:", true);
             }
-            if (view.promptYesOrNo("Do you want to update course?")) {
+            if (view.promptYesOrNo("Do you want to update the course?")) {
                 courseIndex = view.promptUserOption(courses, "Select a course:", true);
             }
-            if (view.promptYesOrNo("Do you want to update semester?")) {
-                semester = view.promptUserString("Updated semester name:");
+            if (view.promptYesOrNo("Do you want to update the semester?")) {
+                semester = view.promptUserString("Enter new semester name:");
             }
             schoolManager.updateEnrolment(enrolmentIndex, studentIndex, courseIndex, semester);
             System.out.println("Enrolment updated.");

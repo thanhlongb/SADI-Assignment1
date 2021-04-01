@@ -50,9 +50,11 @@ public class SchoolManager {
         return convertEnrolmentArrayToStringArray(allEnrolments);
     }
 
-    public String[] getOneEnrolments(String studentName,
-                                     String courseName,
+    public String[] getOneEnrolments(Integer studentIndex,
+                                     Integer courseIndex,
                                      String semester) {
+        String studentName = (studentIndex == null) ? null : this.students.get(studentIndex).getName();
+        String courseName = (courseIndex == null) ? null : this.courses.get(courseIndex).getName();
         StudentEnrolment[] enrolments = this.enrolments.getOne(studentName, courseName, semester);
         return convertEnrolmentArrayToStringArray(enrolments);
     }

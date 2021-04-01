@@ -16,7 +16,7 @@ public class View {
         return INSTANCE;
     }
 
-    public void waitForUserToReadOutput() {
+    public void standBy() {
         System.out.print(">> Press ENTER to continue...");
         this.scanner.nextLine();
     }
