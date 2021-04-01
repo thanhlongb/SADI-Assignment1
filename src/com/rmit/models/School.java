@@ -1,26 +1,20 @@
-package com.rmit;
+package com.rmit.models;
+
+import com.rmit.utils.DefaultFileName;
+import com.rmit.utils.FileManager;
 
 import java.io.FileNotFoundException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class SchoolManager {
-    public static final String DEFAULT_STUDENTS_FILENAME = "students.csv";
-    public static final String DEFAULT_COURSES_FILENAME = "courses.csv";
-    public static final String DEFAULT_ENROLMENTS_FILENAME = "enrolments.csv";
-    private static final SchoolManager INSTANCE = new SchoolManager();
+public class School {
     private StudentEnrolmentManager enrolments;
     private ArrayList<Student> students;
     private ArrayList<Course> courses;
 
-    private SchoolManager() {
+    public School() {
         this.enrolments = new StudentEnrolmentList();
         this.students = new ArrayList<>();
         this.courses = new ArrayList<>();
-    }
-
-    public static SchoolManager getInstance() {
-        return INSTANCE;
     }
 
     public String[] getStudents() {
@@ -29,7 +23,7 @@ public class SchoolManager {
             Student student = this.students.get(i);
             studentArray[i] = String.format("%s, %s",
                     student.getName(),
-                    new SimpleDateFormat("dd/MM/yyyy").format(student.getBirthDay()));
+                    student.getBirthDayString());
         }
         return studentArray;
     }
@@ -53,8 +47,8 @@ public class SchoolManager {
     public String[] getOneEnrolments(Integer studentIndex,
                                      Integer courseIndex,
                                      String semester) {
-        String studentName = (studentIndex == null) ? null : this.students.get(studentIndex).getName();
-        String courseName = (courseIndex == null) ? null : this.courses.get(courseIndex).getName();
+        String studentName = (studentIndex == null) ? null : this.students.get(studentIndex).getId();
+        String courseName = (courseIndex == null) ? null : this.courses.get(courseIndex).getId();
         StudentEnrolment[] enrolments = this.enrolments.getOne(studentName, courseName, semester);
         return convertEnrolmentArrayToStringArray(enrolments);
     }
@@ -109,7 +103,7 @@ public class SchoolManager {
     }
 
     public int importStudents() {
-        return this.importStudents(SchoolManager.DEFAULT_STUDENTS_FILENAME);
+        return this.importStudents(DefaultFileName.STUDENTS.value);
     }
 
     public int importStudents(String fileName) {
@@ -125,7 +119,7 @@ public class SchoolManager {
     }
 
     public int importCourses() {
-        return this.importCourses(SchoolManager.DEFAULT_COURSES_FILENAME);
+        return this.importCourses(DefaultFileName.COURSES.value);
     }
 
     public int importCourses(String fileName) {

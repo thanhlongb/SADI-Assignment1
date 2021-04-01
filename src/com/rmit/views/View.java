@@ -1,4 +1,6 @@
-package com.rmit;
+package com.rmit.views;
+
+import com.rmit.utils.FileManager;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -64,9 +66,8 @@ public class View {
 
     public boolean promptYesOrNo(String promptText) {
         String result = promptUserString(promptText + " (Y for yes)");
-        return result.toLowerCase().equals("y");
+        return result.equalsIgnoreCase("y");
     }
-
 
     public void printStringArray(String[] array) {
         if (array.length > 0) {

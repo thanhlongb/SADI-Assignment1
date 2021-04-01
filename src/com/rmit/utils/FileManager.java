@@ -1,7 +1,6 @@
-package com.rmit;
+package com.rmit.utils;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,8 +18,8 @@ public class FileManager {
     public static void writeFile(String content) {
         // ref: https://www.baeldung.com/java-write-to-file
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(SchoolManager.DEFAULT_ENROLMENTS_FILENAME, true));
-            writer.append(content);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(DefaultFileName.ENROLMENTS.value, true));
+            writer.append(content).append(" \n");
             writer.close();
         } catch (IOException e) {
             // handle

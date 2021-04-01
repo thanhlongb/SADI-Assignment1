@@ -1,4 +1,4 @@
-package com.rmit;
+package com.rmit.models;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -66,6 +66,10 @@ public class Student {
 
     public Date getBirthDay() {
         return birthDay;
+    }
+
+    public String getBirthDayString() {
+        return new SimpleDateFormat("dd/MM/yyyy").format(this.getBirthDay());
     }
 
     public void setBirthDay(Date birthDay) {

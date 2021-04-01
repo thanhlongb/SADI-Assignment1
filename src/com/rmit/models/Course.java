@@ -1,8 +1,5 @@
-package com.rmit;
+package com.rmit.models;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 

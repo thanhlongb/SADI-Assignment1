@@ -1,4 +1,4 @@
-package com.rmit;
+package com.rmit.models;
 
 import java.util.ArrayList;
 
@@ -25,15 +25,15 @@ public class StudentEnrolmentList implements StudentEnrolmentManager {
     }
 
     @Override
-    public StudentEnrolment[] getOne(String studentName,
-                                     String courseName,
+    public StudentEnrolment[] getOne(String studentId,
+                                     String courseId,
                                      String semester) {
         ArrayList<StudentEnrolment> returnEnrolments = new ArrayList<>();
         for (StudentEnrolment enrolment: this.enrolments) {
-            if (studentName != null && !enrolment.getStudent().getName().equals(studentName)) {
+            if (studentId != null && !enrolment.getStudent().getId().equals(studentId)) {
                 continue;
             }
-            if (courseName != null && !enrolment.getCourse().getName().equals(courseName)) {
+            if (courseId != null && !enrolment.getCourse().getId().equals(courseId)) {
                 continue;
             }
             if (semester != null && !enrolment.getSemester().equals(semester)) {
