@@ -1,7 +1,6 @@
 package com.rmit;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,5 +13,17 @@ public class FileManager {
             lines.add(inputFileScanner.nextLine());
         }
         return lines.toArray(new String[lines.size()]);
+    }
+
+
+    public static void writeFile(String content) {
+        // ref: https://www.baeldung.com/java-write-to-file
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(SchoolManager.DEFAULT_ENROLMENTS_FILENAME, true));
+            writer.append(content);
+            writer.close();
+        } catch (IOException e) {
+            // handle
+        }
     }
 }

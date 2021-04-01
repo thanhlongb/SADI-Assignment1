@@ -7,10 +7,27 @@ public class Main {
     private static SchoolManager schoolManager = SchoolManager.getInstance();
     private static View view = View.getInstance();
     public static void main(String[] args) {
+        importData(args);
         while (true) {
             showMainMenu();
             view.waitForUserToReadOutput();
         }
+    }
+
+    private static void importData(String[] args) {
+        int importedCoursesCount, importedStudentsCount;
+        if (args.length > 2) {
+            importedCoursesCount = schoolManager.importCourses(args[1]);
+        } else {
+            importedCoursesCount = schoolManager.importCourses();
+        }
+        view.printMessage(String.format("Found %s courses.", importedCoursesCount));
+        if (args.length > 3) {
+            importedStudentsCount = schoolManager.importStudents(args[2]);
+        } else {
+            importedStudentsCount = schoolManager.importStudents();
+        }
+        view.printMessage(String.format("Found %s students.", importedStudentsCount));
     }
 
     private static void showMainMenu() {
@@ -95,19 +112,8 @@ public class Main {
     private static void askIfUserWantToExportEnrolment(String[] enrolments) {
         if (view.promptYesOrNo("Do you want to export this list?")) {
             for (String enrolment:enrolments) {
-                writeToFile(enrolment);
+                FileManager.writeFile(enrolment);
             }
-        }
-    }
-
-    private static void writeToFile(String content) {
-        // ref: https://www.baeldung.com/java-write-to-file
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt", true));
-            writer.append(content);
-            writer.close();
-        } catch (IOException e) {
-            // handle
         }
     }
 

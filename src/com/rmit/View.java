@@ -64,19 +64,27 @@ public class View {
 
     public boolean promptYesOrNo(String promptText) {
         String result = promptUserString(promptText + " (Y for yes)");
-        return result.equals("Y");
+        return result.toLowerCase().equals("y");
     }
 
 
     public void printStringArray(String[] array) {
-        for (int i = 0; i < array.length; i++) {
-            System.out.println(String.format("[%s] %s", i, array[i]));
+        if (array.length > 0) {
+            for (int i = 0; i < array.length; i++) {
+                System.out.println(String.format("[%s] %s", i, array[i]));
+            }
+        } else {
+            System.out.println("There is no record.");
         }
     }
 
     public void printQuitMessage() {
         String exitMessage = "Bye!";
         System.out.println(exitMessage);
+    }
+
+    public void printMessage(String message) {
+        System.out.println(message);
     }
 
     @Override

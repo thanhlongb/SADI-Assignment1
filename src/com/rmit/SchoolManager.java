@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class SchoolManager {
+    public static final String DEFAULT_STUDENTS_FILENAME = "students.csv";
+    public static final String DEFAULT_COURSES_FILENAME = "courses.csv";
+    public static final String DEFAULT_ENROLMENTS_FILENAME = "enrolments.csv";
     private static final SchoolManager INSTANCE = new SchoolManager();
     private StudentEnrolmentManager enrolments;
     private ArrayList<Student> students;
@@ -103,6 +106,10 @@ public class SchoolManager {
         this.enrolments.add(newEnrolment);
     }
 
+    public int importStudents() {
+        return this.importStudents(SchoolManager.DEFAULT_STUDENTS_FILENAME);
+    }
+
     public int importStudents(String fileName) {
         try {
             String[] lines = FileManager.readFile(fileName);
@@ -115,6 +122,10 @@ public class SchoolManager {
         }
     }
 
+    public int importCourses() {
+        return this.importCourses(SchoolManager.DEFAULT_COURSES_FILENAME);
+    }
+
     public int importCourses(String fileName) {
         try {
             String[] lines = FileManager.readFile(fileName);
@@ -125,19 +136,5 @@ public class SchoolManager {
         } catch (FileNotFoundException e) {
             return 0;
         }
-    }
-
-    private void populateStudentData() {
-        this.students.add(new Student("Andrew", "24/05/2000"));
-        this.students.add(new Student("Bob", "12/02/2000"));
-        this.students.add(new Student("Chad", "01/06/2000"));
-
-    }
-
-    private void populateCourseData() {
-        this.courses.add(new Course("SEF", 12));
-        this.courses.add(new Course("SED", 24));
-        this.courses.add(new Course("BITS", 12));
-        this.courses.add(new Course("IOT", 24));
     }
 }
