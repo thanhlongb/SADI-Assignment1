@@ -167,4 +167,38 @@ public class Controller {
         view.printQuitMessage();
         System.exit(0);
     }
+
+    public void showMainMenu() {
+        String[] options = {
+                "Print all students",
+                "Print all courses",
+                "Print all enrolments",
+                "Print all courses of 1 student in 1 semester",
+                "Print all students of 1 course in 1 semester",
+                "Print all courses offered in 1 semester",
+                "Enroll a student into a course",
+                "Update an enrolment",
+                "Delete an enrolment",
+                "Quit"
+        };
+        int userOption = view.promptUserOption(options, "Select the operation you want to execute:");
+        switch (userOption) {
+            case 0: this.showAllStudents(); break;
+            case 1: this.showAllCourses(); break;
+            case 2: this.showAllEnrolments(); break;
+            case 3: this.printAllCourseOfStudentInSemester(); break;
+            case 4: this.printAllStudentOfCourseInSemester(); break;
+            case 5: this.printAllCourseInSemester(); break;
+            case 6: this.enrollStudentIntoCourse(); break;
+            case 7: this.updateEnrolment(); break;
+            case 8: this.deleteEnrolment(); break;
+            case 9: this.quitProgram(); break;
+            default: break;
+        }
+    }
+
+    public void waitForInput() {
+        view.standBy();
+    }
+
 }

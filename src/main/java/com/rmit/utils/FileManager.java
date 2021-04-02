@@ -16,13 +16,10 @@ public class FileManager {
 
 
     public static void writeFile(String content) {
-        // ref: https://www.baeldung.com/java-write-to-file
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(DefaultFileName.ENROLMENTS.value, true));
             writer.append(content).append(" \n");
             writer.close();
-        } catch (IOException e) {
-            // handle
-        }
+        } catch (IOException ignored) { }
     }
 }

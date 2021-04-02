@@ -21,17 +21,6 @@ public class Course {
         this.credits = Integer.valueOf(data[2]);
     }
 
-    public Course(String name, Integer credits) {
-        this();
-        this.name = name;
-        this.credits = credits;
-    }
-
-    public Course(String id, String name, Integer credits) {
-        this(name, credits);
-        this.id = id;
-    }
-
     public String getId() {
         return id;
     }

@@ -28,26 +28,6 @@ public class Student {
         }
     }
 
-    public Student(String name, Date birthDay) {
-        this();
-        this.name = name;
-        this.birthDay = birthDay;
-    }
-
-    public Student(String name, String birthDayString) {
-        this(name, new Date());
-        try {
-            this.birthDay = new SimpleDateFormat("dd/MM/yyyy").parse(birthDayString);
-        } catch (ParseException ignored) {
-            this.birthDay = new Date();
-        }
-    }
-
-    public Student(String id, String name, Date birthDay) {
-        this(name, birthDay);
-        this.id = id;
-    }
-
     public String getId() {
         return id;
     }
