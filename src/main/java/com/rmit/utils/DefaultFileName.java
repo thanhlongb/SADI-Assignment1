@@ -1,5 +1,8 @@
 package com.rmit.utils;
 
+/**
+ * Enumeration of default data file names.
+ */
 public enum DefaultFileName {
     STUDENTS("students.csv"),
     COURSES("courses.csv"),

@@ -6,15 +6,29 @@ import com.rmit.views.View;
 
 import java.util.concurrent.CancellationException;
 
+/**
+ * The sole controller for this program.
+ */
 public class Controller {
     private School school = new School();
     private View view = View.getInstance();
 
+    /**
+     * Get the single instance of this class.
+     * @return A controller instance.
+     */
     public static Controller getInstance() {
         return INSTANCE;
     }
     private static final Controller INSTANCE = new Controller();
 
+    /**
+     * Import the courses and students data from csv files.
+     * If the arguments are not passed in, default file names will be used.
+     * @param args Arguments from the console command.
+     *             The first argument is the course's file name.
+     *             The second argument is the student's file name.
+     */
     public void importData(String[] args) {
         int importedCoursesCount, importedStudentsCount;
         if (args.length > 0) {
@@ -31,18 +45,30 @@ public class Controller {
         view.printMessage(String.format("Found %s students.", importedStudentsCount));
     }
 
+    /**
+     * Print all the students to the console.
+     */
     public void showAllStudents() {
         view.printStringArray(school.getStudents());
     }
 
+    /**
+     * Print all the courses to the console.
+     */
     public void showAllCourses() {
         view.printStringArray(school.getCourses());
     }
 
+    /**
+     * Print all the enrolments to the console.
+     */
     public void showAllEnrolments() {
         view.printStringArray(school.getAllEnrolments());
     }
 
+    /**
+     * Print all the courses of a student in a semester.
+     */
     public void printAllCourseOfStudentInSemester() {
         String semester;
         int studentIndex;
@@ -62,6 +88,11 @@ public class Controller {
         }
     }
 
+    /**
+     * Ask if the user want to export the enrolments list to a csv file.
+     * If yes then export them.
+     * @param enrolments The enrolments to be exported.
+     */
     private void promptExportEnrolment(String[] enrolments) {
         if (view.promptYesOrNo("Do you want to export this list?")) {
             for (String enrolment:enrolments) {
@@ -70,6 +101,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Print all the students of a course in a semester.
+     */
     public void printAllStudentOfCourseInSemester() {
         String semester;
         int courseIndex;
@@ -89,6 +123,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Print all courses in a semester.
+     */
     public void printAllCourseInSemester() {
         String semester = view.promptUserString("Enter the semester:");
         String[] enrolments = school.getOneEnrolments(null, null, semester);
@@ -100,6 +137,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Enroll a student into a course.
+     */
     public void enrollStudentIntoCourse() {
         int studentIndex, courseIndex;
         String semester = "";
@@ -118,6 +158,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Update an enrolment.
+     */
     public void updateEnrolment() {
         int enrolmentIndex;
         Integer studentIndex = null;
@@ -148,6 +191,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Delete an enrolment.
+     */
     public void deleteEnrolment() {
         int enrolmentIndex;
         String[] enrolments = school.getAllEnrolments();
@@ -163,11 +209,17 @@ public class Controller {
         }
     }
 
+    /**
+     * Exit the program.
+     */
     public void quitProgram() {
         view.printQuitMessage();
         System.exit(0);
     }
 
+    /**
+     * Show the list of features of this program and allow the user to choose one.
+     */
     public void showMainMenu() {
         String[] options = {
                 "Print all students",
@@ -197,6 +249,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Wait for the user to read the output of this program.
+     */
     public void waitForInput() {
         view.standBy();
     }
