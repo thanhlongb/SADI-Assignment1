@@ -27,9 +27,9 @@ public class FileManager {
      * Write data to a file.
      * @param content   The content to write to the file.
      */
-    public static void writeFile(String content) {
+    public static void writeFile(String fileName, String content) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(DefaultFileName.ENROLMENTS.value, true));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
             writer.append(content).append(" \n");
             writer.close();
         } catch (IOException ignored) { }

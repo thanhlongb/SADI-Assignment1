@@ -1,6 +1,7 @@
 package com.rmit.controllers;
 
 import com.rmit.models.School;
+import com.rmit.utils.DefaultFileName;
 import com.rmit.utils.FileManager;
 import com.rmit.views.View;
 
@@ -96,7 +97,7 @@ public class Controller {
     private void promptExportEnrolment(String[] enrolments) {
         if (view.promptYesOrNo("Do you want to export this list?")) {
             for (String enrolment:enrolments) {
-                FileManager.writeFile(enrolment);
+                FileManager.writeFile(DefaultFileName.ENROLMENTS.value, enrolment);
             }
         }
     }
