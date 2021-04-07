@@ -69,12 +69,12 @@ public class School {
      * @param semester  The semester name.
      * @return  A string array of enrolments that matches the criteria.
      */
-    public String[] getOneEnrolments(Integer studentIndex,
-                                     Integer courseIndex,
-                                     String semester) {
+    public String[] findEnrolments(Integer studentIndex,
+                                   Integer courseIndex,
+                                   String semester) {
         String studentName = (studentIndex == null) ? null : this.students.get(studentIndex).getId();
         String courseName = (courseIndex == null) ? null : this.courses.get(courseIndex).getId();
-        StudentEnrolment[] enrolments = this.enrolments.getOne(studentName, courseName, semester);
+        StudentEnrolment[] enrolments = this.enrolments.find(studentName, courseName, semester);
         return convertEnrolmentArrayToStringArray(enrolments);
     }
 

@@ -77,7 +77,7 @@ public class Controller {
         try {
             studentIndex = view.promptUserOption(students, "Select a student:", true);
             semester = view.promptUserString("Enter the semester:");
-            String[] enrolments = school.getOneEnrolments(studentIndex, null, semester);
+            String[] enrolments = school.findEnrolments(studentIndex, null, semester);
             if (enrolments.length > 0) {
                 view.printStringArray(enrolments);
                 this.promptExportEnrolment(enrolments);
@@ -112,7 +112,7 @@ public class Controller {
         try {
             courseIndex = view.promptUserOption(courses, "Select a course:", true);
             semester = view.promptUserString("Enter the semester:");
-            String[] enrolments = school.getOneEnrolments(null, courseIndex, semester);
+            String[] enrolments = school.findEnrolments(null, courseIndex, semester);
             if (enrolments.length > 0) {
                 view.printStringArray(enrolments);
                 this.promptExportEnrolment(enrolments);
@@ -129,7 +129,7 @@ public class Controller {
      */
     public void printAllCourseInSemester() {
         String semester = view.promptUserString("Enter the semester:");
-        String[] enrolments = school.getOneEnrolments(null, null, semester);
+        String[] enrolments = school.findEnrolments(null, null, semester);
         if (enrolments.length > 0) {
             view.printStringArray(enrolments);
             this.promptExportEnrolment(enrolments);

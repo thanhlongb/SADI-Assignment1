@@ -42,12 +42,33 @@ public class StudentEnrolmentList implements StudentEnrolmentManager {
      * @param studentId The index of the student.
      * @param courseId  The index of the course.
      * @param semester  The semester name.
-     * @return  A string array of enrolment information.
+     * @return  An enrolment.
      */
     @Override
-    public StudentEnrolment[] getOne(String studentId,
-                                     String courseId,
-                                     String semester) {
+    public StudentEnrolment getOne(String studentId,
+                                   String courseId,
+                                   String semester) {
+        for (StudentEnrolment enrolment: this.enrolments) {
+            if (enrolment.getStudent().getId().equals(studentId) &&
+                enrolment.getCourse().getId().equals(courseId) &&
+                enrolment.getSemester().equals(semester)) {
+                return enrolment;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns enrolments information.
+     * @param studentId Id of the student.
+     * @param courseId  Id of the course.
+     * @param semester  Name of the semester.
+     * @return  An array of enrolments.
+     */
+    @Override
+    public StudentEnrolment[] find(String studentId,
+                                    String courseId,
+                                    String semester) {
         ArrayList<StudentEnrolment> returnEnrolments = new ArrayList<>();
         for (StudentEnrolment enrolment: this.enrolments) {
             if (studentId != null && !enrolment.getStudent().getId().equals(studentId)) {

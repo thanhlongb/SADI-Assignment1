@@ -21,15 +21,13 @@ public interface StudentEnrolmentManager {
     Boolean delete(StudentEnrolment studentEnrolment);
 
     /**
-     * Returns enrolments information.
+     * Returns one enrolment information.
      * @param studentId Id of the student.
      * @param courseId  Id of the course.
      * @param semester  Name of the semester.
-     * @return  Array of StudentEnrolment objects.
+     * @return  A StudentEnrolment object.
      */
-    StudentEnrolment[] getOne(String studentId,
-                              String courseId,
-                              String semester);
+    StudentEnrolment getOne(String studentId, String courseId, String semester);
 
     /**
      * Returns all of the enrolments.
@@ -52,4 +50,13 @@ public interface StudentEnrolmentManager {
      * @return  An StudentEnrolment object.
      */
     StudentEnrolment get(int index);
+
+    /**
+     * Returns enrolments information.
+     * @param studentId Id of the student.
+     * @param courseId  Id of the course.
+     * @param semester  Name of the semester.
+     * @return  Array list of StudentEnrolment object.
+     */
+    StudentEnrolment[] find(String studentId, String courseId, String semester);
 }
