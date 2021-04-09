@@ -208,4 +208,38 @@ public class School {
             return 0;
         }
     }
+
+    public int importEnrolments() {
+        return this.importEnrolments(DefaultFileName.ENROLMENTS.value);
+    }
+
+    public int importEnrolments(String fileName) {
+        try {
+            String[] lines = FileManager.readFile(fileName);
+            for (String line:lines) {
+                String[] data = line.split(",");
+                Student student = findStudentById(data[0]);
+                Course course = findCourseById(data[1]);
+                String semester = data[2];
+                this.enrolments.add(new StudentEnrolment(student, course, semester));
+            }
+            return lines.length;
+        } catch (FileNotFoundException e) {
+            return 0;
+        }
+    }
+
+    private Student findStudentById(String studentId) {
+        return this.students.stream()
+                .filter(student -> student.getId().equals(studentId))
+                .findFirst()
+                .orElse(null);
+    }
+
+    private Course findCourseById(String courseId) {
+        return this.courses.stream()
+                .filter(course -> course.getId().equals(courseId))
+                .findFirst()
+                .orElse(null);
+    }
 }

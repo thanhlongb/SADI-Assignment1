@@ -257,4 +257,11 @@ public class Controller {
         view.standBy();
     }
 
+    public void askToLoadEnrolmentsFromSpecificFile() {
+        if (view.promptYesOrNo("Do you want to load enrolment from a file?")) {
+            String customFileName = view.promptUserString("Enter your file name:");
+
+        }
+    }
+
 }

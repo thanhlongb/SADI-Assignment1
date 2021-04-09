@@ -16,6 +16,7 @@ public class Main {
      */
     public static void main(String[] args) {
         controller.importData(args);
+        controller.askToLoadEnrolmentsFromSpecificFile();
         while (true) {
             controller.showMainMenu();
             controller.waitForInput();

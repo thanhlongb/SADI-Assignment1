@@ -18,7 +18,7 @@ public class Student {
      * Creates a student with randomized id.
      */
     public Student() {
-        this.id = UUID.randomUUID().toString();
+        this.id = "";
         this.name = "";
         this.birthDay = new Date();
     }

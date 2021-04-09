@@ -6,7 +6,7 @@ package com.rmit.utils;
 public enum DefaultFileName {
     STUDENTS("students.csv"),
     COURSES("courses.csv"),
-    ENROLMENTS("enrolments.csv");
+    ENROLMENTS("default.csv");
 
     public final String value;
     DefaultFileName(String value) {
